@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BachelorProjectApp</string>
+    <string name="permissions_not_granted">Zugriff verweigert</string>
+    <string name="cameraPermissionGrantedText">Kamerazugriff erlaubt</string>
+    <string name="StoragePermissionsGranted">Speicherzugriff erlaubt</string>
+    <string name="chooseText">Wähle aus:</string>
+    <string name="startStudentModeText">Ich bin in der Wachsbleiche</string>
+    <string name="startMuseumModeText">Ich bin im Museum</string>
+    <string name="lastMatchesText">Debug</string>
+    <string name="ok">okay</string>
+</resources>

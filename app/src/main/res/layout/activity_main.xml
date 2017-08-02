@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:opencv="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryColor"
+
+    tools:context="development.andre.sanders.bachelorprojectapp.view.OpenCvActivity">
+
+
+    <development.andre.sanders.bachelorprojectapp.view.CustomJavaCameraView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/javaCameraView"
+        opencv:show_fps="true"
+        android:layout_gravity="center"
+        android:focusableInTouchMode="false"
+        android:visibility="gone"
+        opencv:camera_id="any"
+        />
+    <Button android:id="@+id/matchButton"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Match!"
+        >
+    </Button>
+
+    <Spinner
+        android:id="@+id/modeSpinner"
+        android:layout_gravity="bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+    <development.andre.sanders.bachelorprojectapp.view.customfragments.CircleOverlayView
+        android:id="@+id/cicleOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </development.andre.sanders.bachelorprojectapp.view.customfragments.CircleOverlayView>
+
+</FrameLayout>

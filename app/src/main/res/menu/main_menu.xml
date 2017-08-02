@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="FocusMode"
+        android:id="@+id/focusModeMenu">
+
+
+        <menu>
+            <item android:title="Auto"
+                android:id="@+id/focus1"/>
+            <item android:title="ContiniousVideo"
+                android:id="@+id/focus2"/>
+            <item android:title="EDOF"
+                android:id="@+id/focus3"/>
+            <item android:title="Fixed"
+                android:id="@+id/focus4"/>
+            <item android:title="Infinity"
+                android:id="@+id/focus5"/>
+            <item android:title="Macro"
+                android:id="@+id/focus6"/>
+
+        </menu>
+    </item>
+
+    <item android:title="AppInfo"
+        android:id="@+id/infoMenu">
+    </item>
+
+</menu>

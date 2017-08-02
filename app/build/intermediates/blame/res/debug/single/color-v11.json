@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/color-v11/abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/color-v11/abc_background_cache_hint_selector_material_dark.xml"
+    }
+]
