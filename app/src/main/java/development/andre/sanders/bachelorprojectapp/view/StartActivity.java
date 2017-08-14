@@ -10,18 +10,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import development.andre.sanders.bachelorprojectapp.R;
-import development.andre.sanders.bachelorprojectapp.controller.StartController;
 import development.andre.sanders.bachelorprojectapp.view.customfragments.ExpandableListAdapter;
 
 /**
@@ -36,8 +32,7 @@ public class StartActivity extends AppCompatActivity {
     //variablen und Konstanten
     private static final String TAG = "StartActivity.class";
 
-    private StartController mStartController;
-
+    //identifier code für permission request
     public static final int MULTIPLE_PERMISSIONS = 10;
 
     //Alle Berechtigungen, die wir brauchen
@@ -55,16 +50,17 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        // get the listview
+        // listview
         ExpandableListView expListView = (ExpandableListView) findViewById(R.id.expListView);
 
-       final List<String> listDataHeader = new ArrayList<>();
+        //alle mögliche Appmodi
+        final List<String> listDataHeader = new ArrayList<>();
         listDataHeader.add("Wachsbleiche");
         listDataHeader.add("Museum");
 
 
-        final HashMap <String, List<String>> childList = new HashMap<>();
-
+        final HashMap<String, List<String>> childList = new HashMap<>();
+        //alle möglichen Source-Objekte hinzufügen
         List<String> wachsbleicheChild = new ArrayList<>();
         wachsbleicheChild.add("2016");
         wachsbleicheChild.add("2015");
@@ -74,10 +70,11 @@ public class StartActivity extends AppCompatActivity {
         childList.put(listDataHeader.get(0), wachsbleicheChild);
 
         List<String> museumChild = new ArrayList<>();
+        museumChild.add("banksy");
 
         //Hier die Gemälde rein
 
-        childList.put(listDataHeader.get(1), wachsbleicheChild);
+        childList.put(listDataHeader.get(1), museumChild);
 
 
         ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, childList);
@@ -88,12 +85,12 @@ public class StartActivity extends AppCompatActivity {
 
                 Intent intent;
                 intent = new Intent(getApplicationContext(), LoadingActivity.class);
-                String appMode ="";
-                if(listDataHeader.get(groupPosition).equals("Wachsbleiche"))
-                    appMode ="studentMode";
+                String appMode = "";
+                if (listDataHeader.get(groupPosition).equals("Wachsbleiche"))
+                    appMode = "studentMode";
 
-                else if(listDataHeader.get(groupPosition).equalsIgnoreCase("Museum"))
-                    appMode ="museumMode";
+                else if (listDataHeader.get(groupPosition).equalsIgnoreCase("Museum"))
+                    appMode = "museumMode";
 
 
                 String sourceObjId;
@@ -116,7 +113,6 @@ public class StartActivity extends AppCompatActivity {
                 return false;
             }
         });
-
 
 
     }

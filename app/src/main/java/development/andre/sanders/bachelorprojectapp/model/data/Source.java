@@ -15,15 +15,15 @@ import java.util.List;
  * Repräsentation eines Quellbildes samt hinterlegter Polygone und ihrer Informationen
  */
 
-public class Source{
+public class Source {
 
-    //Bitmap representation of original source image.
+    //Das Quellbild. Nur bei erstem start zu Featureberechnung gesetzt. Danach null
     private Bitmap originalImage;
 
-    //Mat Representation of original image
+    //Mat Repräsentation des Originalbildes
     private Mat originalMat;
     //Object id- year, or name, or id....
-    private Object sourceId;
+    private String sourceId;
 
     //Map aller shapes, die das Bild beinhaltet. Irgendein Objektschlüssel
     private List<Polygon> shapes = new ArrayList<>();
@@ -35,45 +35,26 @@ public class Source{
     private Mat descriptors;
 
 
-
-
-
     //Default C'tor
     public Source() {
 
     }
 
-    public Source(Object sourceId, Bitmap originalImage, List<Polygon> shapes) {
+    public Source(String sourceId, Bitmap originalImage, List<Polygon> shapes) {
         this.originalImage = originalImage;
         this.sourceId = sourceId;
         this.shapes = shapes;
 
     }
 
-    /**
-     * @param polygon1
-     * @return returns the nearest shape to polygon1
-     */
-    public Polygon getNearestPolygon(Polygon polygon1) {
-
-        return null;
-    }
-
 
     /**
      * release all allocated memory for mat objects
      */
-    public void releaseAll(){
+    public void releaseAll() {
         originalMat.release();
         features.release();
         descriptors.release();
-    }
-    /**
-     * @param polygon
-     * @return return information of specified polygon
-     */
-    public Object getInformationOfPolygon(Polygon polygon) {
-        return null;
     }
 
 
@@ -85,11 +66,11 @@ public class Source{
         this.originalImage = originalImage;
     }
 
-    public Object getSourceId() {
+    public String getSourceId() {
         return sourceId;
     }
 
-    public void setSourceId(Object sourceId) {
+    public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }
 

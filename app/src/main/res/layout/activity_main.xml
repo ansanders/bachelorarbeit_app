@@ -28,18 +28,18 @@
         >
     </Button>
 
-    <Spinner
-        android:id="@+id/modeSpinner"
-        android:layout_gravity="bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <!--<Spinner-->
+        <!--android:id="@+id/modeSpinner"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
 
-    </Spinner>
-    <development.andre.sanders.bachelorprojectapp.view.customfragments.CircleOverlayView
-        android:id="@+id/cicleOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--</Spinner>-->
+    <!--<development.andre.sanders.bachelorprojectapp.view.customfragments.CircleOverlayView-->
+        <!--android:id="@+id/cicleOverlay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-    </development.andre.sanders.bachelorprojectapp.view.customfragments.CircleOverlayView>
+    <!--</development.andre.sanders.bachelorprojectapp.view.customfragments.CircleOverlayView>-->
 
 </FrameLayout>

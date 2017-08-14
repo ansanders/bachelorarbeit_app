@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import development.andre.sanders.bachelorprojectapp.model.ResourceManager;
-import development.andre.sanders.bachelorprojectapp.model.callbacks.OnDownloadCompleted;
+import development.andre.sanders.bachelorprojectapp.model.manager.ResourceManager;
+import development.andre.sanders.bachelorprojectapp.model.callbacks.DownloadListener;
 
 /**
  * Created by andre on 12.07.17.
@@ -14,10 +14,10 @@ import development.andre.sanders.bachelorprojectapp.model.callbacks.OnDownloadCo
  * HelperActivity to load the content on Appstarts
  */
 
-public class LoadingActivity extends AppCompatActivity implements OnDownloadCompleted {
+public class LoadingActivity extends AppCompatActivity implements DownloadListener {
 
     private String currentAppMode;
-    private String currentSource;
+    private String currentSourceId;
     private ProgressDialog progressDialog;
 
     @Override
@@ -27,13 +27,13 @@ public class LoadingActivity extends AppCompatActivity implements OnDownloadComp
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             currentAppMode = null;
-            currentSource = null;
+            currentSourceId = null;
         } else {
             currentAppMode = extras.getString("appMode");
-            currentSource = extras.getString("sourceObject");
+            currentSourceId = extras.getString("sourceObject");
         }
 
-        if (currentAppMode == null || currentSource == null)
+        if (currentAppMode == null || currentSourceId == null)
             throw new RuntimeException("APPMODE AND WANTED SOURCE MUST BE SET!");
 
 
@@ -49,7 +49,7 @@ public class LoadingActivity extends AppCompatActivity implements OnDownloadComp
      * UI-Callback, der getriggered wird, wenn alle downloads abgeschlossen sind
      */
     @Override
-    public void onDownloadCompleted() {
+    public void onDownloadResult() {
         //Speicher heruntergeladene Daten und zeige neeuen prozess an
 
         progressDialog.dismiss();
@@ -57,12 +57,12 @@ public class LoadingActivity extends AppCompatActivity implements OnDownloadComp
         //start the actvity after download
         Intent intent = new Intent(getApplicationContext(), OpenCvActivity.class);
         intent.putExtra("appMode", currentAppMode);
-        intent.putExtra("sourceObject", currentSource);
+        intent.putExtra("sourceObject", currentSourceId);
         startActivity(intent);
     }
 
     @Override
-    public void setProgress(Integer progress, String message) {
+    public void showDownloadStatus(Integer progress, String message) {
         progressDialog.setMessage(message);
         progressDialog.setProgress(progress);
     }

@@ -123,7 +123,6 @@ MERGED from [com.android.support:recyclerview-v7:25.3.1] /home/andre/.android/bu
 MERGED from [com.android.support:transition:25.3.1] /home/andre/.android/build-cache/6426a9c90e0d2a01c915b53fd0cf629fb5fc275f/output/AndroidManifest.xml:20:5-44
 MERGED from [com.koushikdutta.ion:ion:2.1.9] /home/andre/.android/build-cache/3e474e77fba8e27ffaa6190030722d308dc2398b/output/AndroidManifest.xml:7:5-9:41
 MERGED from [com.koushikdutta.async:androidasync:2.1.9] /home/andre/.android/build-cache/9a1c60f8be638bef85f9bf641dfbb009b604fc08/output/AndroidManifest.xml:7:5-9:41
-MERGED from [BachelorProjectApp:openCVLibrary330rc:unspecified] /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/openCVLibrary330rc/build/intermediates/bundles/default/AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.android.gms:play-services-vision:11.0.2] /home/andre/.android/build-cache/a4e3412b87d78d0233f95ad1fdecd66ed46fa621/output/AndroidManifest.xml:3:5-43
 MERGED from [com.google.android.gms:play-services-vision-common:11.0.2] /home/andre/.android/build-cache/b4b1cdc30ab32621b5ccbddeb4f362cdca6d2fdc/output/AndroidManifest.xml:3:5-43
 MERGED from [com.google.android.gms:play-services-base:11.0.2] /home/andre/.android/build-cache/af0e5c7a2eb7df53cd908576c853d68ce22d1736/output/AndroidManifest.xml:17:5-43
@@ -135,6 +134,7 @@ MERGED from [com.android.support:support-media-compat:25.3.1] /home/andre/.andro
 MERGED from [com.android.support:support-core-ui:25.3.1] /home/andre/.android/build-cache/0602b368c00cf5fcbba010f60485f49fbb40e73d/output/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-core-utils:25.3.1] /home/andre/.android/build-cache/9d97c6af84cbbedcdd4169095a03af94f54ee560/output/AndroidManifest.xml:21:5-23:61
 MERGED from [com.android.support:support-compat:25.3.1] /home/andre/.android/build-cache/a3110c7ebc97a176742dc4b302cb4093a499adfb/output/AndroidManifest.xml:21:5-23:58
+MERGED from [BachelorProjectApp:openCVLibrary330rc:unspecified] /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/openCVLibrary330rc/build/intermediates/bundles/default/AndroidManifest.xml:7:5-9:41
 	tools:overrideLibrary
 		ADDED from [com.android.support:design:25.3.1] /home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/AndroidManifest.xml:23:9-59
 	android:targetSdkVersion

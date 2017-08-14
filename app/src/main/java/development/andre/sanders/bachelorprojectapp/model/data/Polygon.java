@@ -6,6 +6,7 @@ import org.opencv.core.Rect;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,18 +16,19 @@ import java.util.List;
 
 public class Polygon implements Serializable {
 
-    //Information of this polygon
+    //Information zu diesem Polygon
     private JSONObject information = null;
 
-    //corners of this polygon
+    //Kanten dieses Polygons
     private List<Line> edges = new ArrayList<>();
-    //position of this polygon
+    //Mittelpunkt dieses Polygons
     private double xPos, yPos;
 
     //Default C'tor
     public Polygon() {
 
     }
+
 
     public Polygon(double xPos, double yPos, List<Line> edges, JSONObject information) {
         this.information = information;
@@ -38,8 +40,8 @@ public class Polygon implements Serializable {
 
 
     /**
-     * @param view the bounding rect to check
-     * @return true, if polygon is partial inside the view
+     * @param view Der Bildausschnitt der gecheckt werden soll
+     * @return true, wenn der Mittelpunkt des Polygons im Rechtecht (Bildausschnitt) liegt
      */
     public boolean isVisible(Rect view) {
 
@@ -50,13 +52,30 @@ public class Polygon implements Serializable {
         return information;
     }
 
+    /**
+     * Diese Methode liefert
+     * @return die Polygoninformation als zusammenhängenden Text.
+     */
     public String getInformationAsText() {
         StringBuilder string = new StringBuilder();
 
         try {
-            string.append(information.getString("firstname"));
-            string.append(System.getProperty("line.separator"));
-            string.append(information.getString("lastname"));
+
+            Iterator<?> keys = information.keys();
+
+            while( keys.hasNext() ) {
+                String key = (String)keys.next();
+                if ( information.get(key) instanceof JSONObject ) {
+                    //nothing
+                }
+                else{
+                    string.append(key);
+                    string.append(information.get(key));
+                    string.append(" ");
+                }
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

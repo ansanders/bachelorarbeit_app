@@ -15,6 +15,7 @@ import development.andre.sanders.bachelorprojectapp.R;
 
 /**
  * Created by andre on 27.07.17.
+ *
  */
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {

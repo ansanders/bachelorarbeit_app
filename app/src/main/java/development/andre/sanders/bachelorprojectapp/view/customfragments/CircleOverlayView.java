@@ -74,11 +74,11 @@ public class CircleOverlayView extends LinearLayout {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
         centerX = getWidth() / 2;
         centerY = getHeight() / 2;
-        radius = 150;
+        radius = 300;
         osCanvas.drawRect(new RectF(centerX - radius,centerY - radius, centerX + radius, centerY + radius), paint);
         Paint innerPaint = new Paint();
         innerPaint.setColor(Color.RED);
-        osCanvas.drawCircle(centerX, centerY, 20, innerPaint);
+        osCanvas.drawCircle(centerX, centerY, 10, innerPaint);
     }
 
     @Override

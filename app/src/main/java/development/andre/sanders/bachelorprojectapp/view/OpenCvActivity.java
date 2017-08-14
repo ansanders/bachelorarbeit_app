@@ -1,8 +1,8 @@
 package development.andre.sanders.bachelorprojectapp.view;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.squareup.otto.Subscribe;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -27,13 +29,20 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import development.andre.sanders.bachelorprojectapp.R;
-import development.andre.sanders.bachelorprojectapp.model.FilterFactory;
-import development.andre.sanders.bachelorprojectapp.model.callbacks.OnCalculationCompleted;
+import development.andre.sanders.bachelorprojectapp.model.callbacks.ActionController;
+import development.andre.sanders.bachelorprojectapp.model.callbacks.CalculationListener;
+import development.andre.sanders.bachelorprojectapp.model.callbacks.events.MatchingResultEvent;
 import development.andre.sanders.bachelorprojectapp.model.data.Polygon;
-import development.andre.sanders.bachelorprojectapp.model.filters.Filter;
+import development.andre.sanders.bachelorprojectapp.model.manager.EventBus;
+import development.andre.sanders.bachelorprojectapp.model.manager.ResourceManager;
+import development.andre.sanders.bachelorprojectapp.model.matching.Matcher;
+import development.andre.sanders.bachelorprojectapp.model.matching.MatcherFactory;
+import development.andre.sanders.bachelorprojectapp.utils.Constants;
 
 /**
  * Created by andre on 04.07.17.
@@ -41,20 +50,22 @@ import development.andre.sanders.bachelorprojectapp.model.filters.Filter;
  * Diese Klasse repräsentiert eine OpenCV activity.
  */
 
-public class OpenCvActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener, OnCalculationCompleted {
+public class OpenCvActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, CalculationListener {
 
-    String currentAppMode;
-    String TAG = "MAIN";
+    private String TAG = "MAIN";
+    private static Context mContext;
+
+    //aktueller appModus
+    private String currentAppMode;
 
     //Virtuelle Repräsentation der Opencv-Camera
     public static CustomJavaCameraView mOpenCvCamera;
 
-    //aktuell aktiver Filter, der auf das Inputframe agewendet wird
-    private Filter activeFilter = null;
+    //aktuell aktiver Matcher, der auf das Inputframe agewendet wird
+    private MatcherFactory matcherFactory = null;
+    private Matcher activeMatcher = null;
 
-    private FilterFactory filterFactory = null;
 
-    private String currentSourceId;
     private ProgressDialog progressDialog;
     private boolean allInit = false;
     private boolean matchingEnabled = false;
@@ -66,16 +77,13 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
 
     private int frameCounter;
 
-    //Die aktuelle dem User angezeigte Information
-    String currentObjectInfo = "";
-    List<Polygon> resultPolys = new ArrayList<>();
 
-    //Touch input stuff
-    static final int MAX_DURATION = 500;
-    long startTime;
-    /* variable for calculating the total time*/
-    long duration;
-    int tapCount = 0;
+    private String visibleStatusMessage = "";
+
+    Queue<AsyncTask> runningTasks = new LinkedList<>();
+
+    //Die aktuelle dem User angezeigte Information
+    List<Polygon> resultPolys = new ArrayList<>();
 
 
     /**
@@ -91,16 +99,24 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
 
                     Log.i("OpenCvActivity", "OpenCV loaded successfully");
 
-                    if (filterFactory == null) {
+
+                    if (matcherFactory == null) {
                         showProgressDialog();
-                        filterFactory = new FilterFactory(OpenCvActivity.this, OpenCvActivity.this);
-                        if (activeFilter == null) {
+                        matcherFactory = new MatcherFactory(OpenCvActivity.this);
+                        if (activeMatcher == null) {
                             //Bei der Erstellung des Filters werden alle Features und Vektoren der urbilder berechnet
-                            activeFilter = filterFactory.getFilter("student");
+                            if (currentAppMode.equals(Constants.STUDENT_MODE))
+                                activeMatcher = matcherFactory.getFilter("student");
+                            else if (currentAppMode.equals(Constants.MUSEUM_MODE))
+                                activeMatcher = matcherFactory.getFilter("museum");
+                            else
+                                activeMatcher = matcherFactory.getFilter("student");
                         }
 
 
                     }
+
+                   // EventBus.getInstance().getBus().register(this);
 
                     //enable user view
                     mOpenCvCamera.enableView();
@@ -121,9 +137,6 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
                     });
 
 
-                    mOpenCvCamera.setOnTouchListener(OpenCvActivity.this);
-
-
                 }
                 break;
                 default: {
@@ -136,7 +149,7 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
 
 
     /**
-     * @param savedInstanceState
+     * @param savedInstanceState erstellt die Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,14 +162,15 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Bundle extras = getIntent().getExtras();
-        if (extras == null) {
-            currentAppMode = null;
-            currentSourceId = null;
-        } else {
-            currentAppMode = extras.getString("appMode");
-            currentSourceId = extras.getString("sourceObject");
-        }
 
+        currentAppMode = extras.getString("appMode");
+        String currentSourceId = extras.getString("sourceObject");
+
+
+        ResourceManager.getInstance().setCurrentSourceById(currentSourceId);
+
+
+        mContext = this;
 
     }
 
@@ -171,7 +185,9 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
         mOpenCvCamera.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCamera.setCvCameraViewListener(OpenCvActivity.this);
         //reduce framesize to male processing faster
-        mOpenCvCamera.setMaxFrameSize(768, 480);
+        mOpenCvCamera.setMaxFrameSize(640, 480);
+
+
 
 
     }
@@ -186,10 +202,14 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
     @Override
     public void onCameraViewStarted(int width, int height) {
 
+
+        mOpenCvCamera.setOnTouchListener(new ActionController(mOpenCvCamera));
         mOpenCvCamera.setFocusMode(OpenCvActivity.this, "Auto");
+
         frameCounter = 0;
         mGrayScale = new Mat();
         mRgba = new Mat();
+
 
     }
 
@@ -206,55 +226,83 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
         mGrayScale = inputFrame.gray();
         mRgba = inputFrame.rgba();
 
-        final String errorMessage = "";
 
-        // jede 1/2s
-        if (frameCounter % 4 == 0 && allInit && matchingEnabled) {
+        if (allInit) {
 
+            //currentInputObjects = inputDetector.detectObject(mGrayScale);
 
-            //Berechnungen werden asynchron durchgeführt, da sie je nach gerät länger dauern könnten
-            AsyncTask<Void, Integer, Void> filterTask = new AsyncTask<Void, Integer, Void>() {
+            final String errorMessage = "";
 
-                //alle sichtbaren polygoninfos
-                List<Polygon> currentPolys = new ArrayList<>();
-
-                @Override
-                protected Void doInBackground(Void[] params) {
-
-                    currentPolys = activeFilter.apply(mGrayScale);
-
-                    return null;
-                }
-
-                @Override
-                protected void onProgressUpdate(Integer... values) {
-                    super.onProgressUpdate(values);
-
-                }
+            // jede 1/2s
+            if (frameCounter % 4 == 0 && matchingEnabled) {
 
 
-                //after executing the code in the thread
-                @Override
-                protected void onPostExecute(Void result) {
-                    super.onPostExecute(result);
+                //Berechnungen werden asynchron durchgeführt, da sie je nach gerät länger dauern könnten
+                final AsyncTask<Void, Integer, Void> filterTask = new AsyncTask<Void, Integer, Void>() {
+
+                    //alle sichtbaren polygoninfos
+                    List<Polygon> currentPolys = new ArrayList<>();
+                    @Override
+                    protected void onPreExecute(){
+                      //  runningTasks.add(this);
+                    }
+                    @Override
+                    protected Void doInBackground(Void[] params) {
+
+                        // if(currentInputObjects != null &&!currentInputObjects.isEmpty())
+                        currentPolys = activeMatcher.match(mGrayScale);
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onProgressUpdate(Integer... values) {
+                        super.onProgressUpdate(values);
+
+                    }
+
+
+                    //after executing the code in the thread
+                    @Override
+                    protected void onPostExecute(Void result) {
+                      //  runningTasks.remove(this);
+                        super.onPostExecute(result);
                         resultPolys = currentPolys;
 
-                }
-            }.execute();
+                    }
+                }.execute();
 
 
-        }
-
-        if (resultPolys != null) {
-            for (Polygon poly : resultPolys) {
-                Log.d(TAG, poly.getInformationAsText());
-                Imgproc.putText(mRgba, poly.getInformationAsText(), new Point(poly.getxPos(), poly.getyPos()),
-                        Core.FONT_HERSHEY_PLAIN, 1.5, new Scalar(0, 255, 255));
             }
-        } else {
-            Imgproc.putText(mRgba, "Bitte warten", new Point(mRgba.cols() / 2, mRgba.rows() / 2),
-                    Core.FONT_HERSHEY_PLAIN, 2.0, new Scalar(0, 255, 255));
+
+            if (resultPolys != null) {
+
+                if (resultPolys.size() > 4) {
+                    visibleStatusMessage = "zu viele Objekte, du musst näher ran zoomen";
+                    Log.d(TAG, "zu viele Gesichter");
+                    Imgproc.putText(mRgba, visibleStatusMessage, new Point(0, mGrayScale.rows() / 5),
+                            Core.FONT_HERSHEY_PLAIN, 1.5, new Scalar(0, 255, 255));
+                } else {
+                    for (Polygon poly : resultPolys) {
+                        Log.d(TAG, poly.getInformationAsText());
+                        Imgproc.putText(mRgba, poly.getInformationAsText(), new Point(poly.getxPos(), poly.getyPos()),
+                                Core.FONT_HERSHEY_PLAIN, 1.5, new Scalar(0, 255, 255));
+                    }
+                }
+
+            } else {
+                Imgproc.putText(mRgba, "Bitte warten", new Point(mRgba.cols() / 2, mRgba.rows() / 2),
+                        Core.FONT_HERSHEY_PLAIN, 2.0, new Scalar(0, 255, 255));
+            }
         }
+//        if (currentInputObjects != null && !currentInputObjects.isEmpty()) {
+//            for (Rect rect : currentInputObjects) {
+//                Imgproc.rectangle(mRgba, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
+//                        new Scalar(0, 255, 0));
+//            }
+//        }
+
+
         frameCounter++;
         return mRgba;
     }
@@ -269,56 +317,6 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
         mGrayScale.release();
 
 
-    }
-
-    //Touch Callback
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        Log.i("OpenCvActivity", "entered onTouch " + event.getPointerCount());
-        Camera.Parameters params = mOpenCvCamera.getParameters();
-        int action = event.getAction();
-
-        /*handle zoom when more than one finger detected*/
-        if (event.getPointerCount() > 1) {
-            // handle multi-touch events
-            if (action == MotionEvent.ACTION_POINTER_DOWN) {
-                mOpenCvCamera.setmDist(mOpenCvCamera.getFingerSpacing(event));
-            } else if (action == MotionEvent.ACTION_MOVE && params.isZoomSupported()) {
-                mOpenCvCamera.getCamera().cancelAutoFocus();
-                mOpenCvCamera.handleZoom(event, params);
-
-            }
-        } else {
-
-//            /*singletap - autofocus*/
-//            switch (event.getAction() & MotionEvent.ACTION_MASK) {
-//                case MotionEvent.ACTION_DOWN:
-//                    startTime = System.currentTimeMillis();
-//                    tapCount++;
-//                    break;
-//                case MotionEvent.ACTION_UP:
-//                    mOpenCvCamera.handleFocus(event, params);
-//                    long time = System.currentTimeMillis() - startTime;
-//                    duration = duration + time;
-//                    if (tapCount == 2) {
-//                        if (duration <= MAX_DURATION) {
-//                            //tap code
-//                        }
-//                        tapCount = 0;
-//                        duration = 0;
-//                        break;
-//                    }
-//            }
-            // handle single touch events
-            if (action == MotionEvent.ACTION_UP) {
-                mOpenCvCamera.handleFocus(event, params);
-
-            }
-
-        }
-
-        return true;
     }
 
 
@@ -346,11 +344,68 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
         }
     }
 
+
+    /**
+     * CALLBACKS
+     */
+
+    @Subscribe
+    public void onMatchingResult(MatchingResultEvent ev){
+        Toast.makeText(this, "MATCH", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showCalculationStatus(Integer progress, String message) {
+        if (progressDialog != null) {
+            progressDialog.setMessage(message);
+            progressDialog.incrementProgressBy(progress);
+        }
+
+    }
+
+
+    @Override
+    public void onCalculationCompleted() {
+        progressDialog.dismiss();
+        progressDialog = null;
+        allInit = true;
+    }
+
+
     public void onDestroy() {
-        super.onDestroy();
+        if (mContext != null)
+            mContext = null;
+
         if (mOpenCvCamera != null)
             mOpenCvCamera.disableView();
+
+       // EventBus.getInstance().getBus().unregister(this);
+
+        //stopAllTasks();
+
+        ResourceManager.getInstance().releaseAllData();
+
+        super.onDestroy();
+
     }
+
+    void showProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+        progressDialog.setTitle("Bitte warten");
+        progressDialog.setMessage("Berechne");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+        //The maximum number of items is 100
+        progressDialog.setMax(100);
+        //Set the current progress to zero
+        progressDialog.setProgress(0);
+
+        progressDialog.show();
+    }
+
 
     /**
      * Menu Part
@@ -411,36 +466,12 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
         }
     }
 
-
-    @Override
-    public void onCalculationCompleted() {
-
-        progressDialog.dismiss();
-        allInit = true;
-    }
-
-    void showProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-
-        progressDialog.setTitle("Bitte warten");
-        progressDialog.setMessage("Berechne");
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(false);
-        //The maximum number of items is 100
-        progressDialog.setMax(100);
-        //Set the current progress to zero
-        progressDialog.setProgress(0);
-
-        progressDialog.show();
-    }
-
-    @Override
-    public void setProgress(Integer progress, String message) {
-        progressDialog.setMessage(message);
-        progressDialog.incrementProgressBy(progress);
-
+    public void stopAllTasks(){
+        if(!runningTasks.isEmpty()){
+            for(AsyncTask task : runningTasks){
+               task.cancel(true);
+            }
+        }
     }
 
     public String getCurrentAppMode() {
@@ -451,12 +482,9 @@ public class OpenCvActivity extends AppCompatActivity implements CameraBridgeVie
         this.currentAppMode = currentAppMode;
     }
 
-    public String getCurrentSourceId() {
-        return currentSourceId;
-    }
 
-    public void setCurrentSourceId(String currentSource) {
-        this.currentSourceId = currentSource;
+    public static Context getmContext() {
+        return mContext;
     }
 
 }

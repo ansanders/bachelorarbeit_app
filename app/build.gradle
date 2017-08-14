@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "development.andre.sanders.bachelorprojectapp"
@@ -32,7 +32,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.koushikdutta.ion:ion:2.1.9'
     compile 'org.jsoup:jsoup:1.10.2'
-    compile project(':openCVLibrary330rc')
-    compile files('libs/gpcj-2.2.0.jar')
     compile 'com.google.android.gms:play-services-vision:11.0.2'
+    compile files('libs/otto-1.3.8.jar')
+    compile project(':openCVLibrary330rc')
 }
