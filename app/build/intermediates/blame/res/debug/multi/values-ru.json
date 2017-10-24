@@ -723,6 +723,82 @@
                         "endOffset": 2211
                     }
                 }
+            },
+            {
+                "to": {
+                    "startLine": 40,
+                    "startColumn": 4,
+                    "startOffset": 4883,
+                    "endColumn": 61,
+                    "endOffset": 4940
+                },
+                "from": {
+                    "file": "/home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/res/values-ru/values-ru.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 61,
+                        "endOffset": 112
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 41,
+                    "startColumn": 4,
+                    "startOffset": 4945,
+                    "endColumn": 46,
+                    "endOffset": 4987
+                },
+                "from": {
+                    "file": "/home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/res/values-ru/values-ru.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 117,
+                        "endColumn": 46,
+                        "endOffset": 159
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 42,
+                    "startColumn": 4,
+                    "startOffset": 4992,
+                    "endColumn": 141,
+                    "endOffset": 5129
+                },
+                "from": {
+                    "file": "/home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/res/values-ru/values-ru.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 164,
+                        "endColumn": 141,
+                        "endOffset": 301
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 43,
+                    "startColumn": 4,
+                    "startOffset": 5134,
+                    "endColumn": 125,
+                    "endOffset": 5255
+                },
+                "from": {
+                    "file": "/home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/res/values-ru/values-ru.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 306,
+                        "endColumn": 125,
+                        "endOffset": 427
+                    }
+                }
             }
         ]
     }

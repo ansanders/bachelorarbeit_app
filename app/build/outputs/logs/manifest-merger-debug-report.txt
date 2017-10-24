@@ -15,34 +15,44 @@ ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/
 		INJECTED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml
 uses-permission#android.permission.CAMERA
 ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:6:5-64
+MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:21:5-65
 	android:name
 		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:6:22-62
+uses-permission#android.permission.INTERNET
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:7:5-66
+MERGED from [com.koushikdutta.ion:ion:2.1.9] /home/andre/.android/build-cache/3e474e77fba8e27ffaa6190030722d308dc2398b/output/AndroidManifest.xml:11:5-67
+MERGED from [com.koushikdutta.async:androidasync:2.1.9] /home/andre/.android/build-cache/9a1c60f8be638bef85f9bf641dfbb009b604fc08/output/AndroidManifest.xml:11:5-67
+	android:name
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:7:22-64
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:7:5-81
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:8:5-81
 	android:name
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:7:22-78
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:8:22-78
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:8:5-80
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:9:5-80
 	android:name
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:8:22-77
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:9:22-77
 uses-feature#android.hardware.camera
-ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:9:5-59
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:10:5-59
+MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:24:5-26:36
 	android:name
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:9:19-57
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:10:19-57
 uses-feature#android.hardware.camera.autofocus
-ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:10:5-69
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:11:5-69
+MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:32:5-34:36
 	android:name
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:10:19-67
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:11:19-67
 uses-feature#android.hardware.camera.front
-ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:11:5-65
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:12:5-65
+MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:27:5-29:36
 	android:name
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:11:19-63
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:12:19-63
 uses-feature#android.hardware.camera.front.autofocus
-ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:12:5-75
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:13:5-75
 	android:name
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:12:19-73
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:13:19-73
 application
-ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:14:5-47:19
+ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:15:5-47:19
 MERGED from [com.android.support.constraint:constraint-layout:1.0.0-alpha9] /home/andre/.android/build-cache/2d0483b1eb76bb2ed79108ffb1d0666c63878b0d/output/AndroidManifest.xml:9:5-20
 MERGED from [com.android.support:design:25.3.1] /home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:appcompat-v7:25.3.1] /home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/AndroidManifest.xml:29:5-20
@@ -56,34 +66,36 @@ MERGED from [com.google.android.gms:play-services-vision-common:11.0.2] /home/an
 MERGED from [com.google.android.gms:play-services-base:11.0.2] /home/andre/.android/build-cache/af0e5c7a2eb7df53cd908576c853d68ce22d1736/output/AndroidManifest.xml:18:5-20:19
 MERGED from [com.google.android.gms:play-services-tasks:11.0.2] /home/andre/.android/build-cache/8f361965d1b7012d0f8046129d36c378fae8487c/output/AndroidManifest.xml:4:5-19
 MERGED from [com.google.android.gms:play-services-basement:11.0.2] /home/andre/.android/build-cache/2cadbdaf6043eede7e90e930fdee3fb3953ceb1c/output/AndroidManifest.xml:19:5-21:19
+MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:45:5-53:19
 MERGED from [com.android.support:support-v4:25.3.1] /home/andre/.android/build-cache/44255be1e3ad4bfdff94084105e14bf33eca4446/output/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-fragment:25.3.1] /home/andre/.android/build-cache/d68f268d6dc5ac0d3f5db447b7335a38b9be75bd/output/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-media-compat:25.3.1] /home/andre/.android/build-cache/c88adfee20450a52a4d2a1050e8fc649c64ce048/output/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-core-ui:25.3.1] /home/andre/.android/build-cache/0602b368c00cf5fcbba010f60485f49fbb40e73d/output/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-core-utils:25.3.1] /home/andre/.android/build-cache/9d97c6af84cbbedcdd4169095a03af94f54ee560/output/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-compat:25.3.1] /home/andre/.android/build-cache/a3110c7ebc97a176742dc4b302cb4093a499adfb/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.volley:volley:1.0.0] /home/andre/.android/build-cache/485bb3fddcc36c3c5387e9f2312ba800ff4b4c41/output/AndroidManifest.xml:9:5-20
 	android:label
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:18:9-41
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:19:9-41
 	android:supportsRtl
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:21:9-35
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:22:9-35
 	android:roundIcon
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:19:9-54
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:20:9-54
 	android:allowBackup
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:16:9-35
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:17:9-35
 	android:icon
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:17:9-43
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:18:9-43
 	android:largeHeap
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:20:9-33
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:21:9-33
 	android:theme
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:22:9-53
-activity#development.andre.sanders.bachelorprojectapp.view.StartActivity
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:23:9-53
+activity#development.andre.sanders.bachelorprojectapp.view.LaunchActivity
 ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:24:9-34:20
 	android:screenOrientation
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:26:13-50
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:26:13-49
 	android:label
 		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:25:13-45
 	android:name
-		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:24:19-53
+		ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:24:19-54
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/AndroidManifest.xml:29:13-33:29
 action#android.intent.action.MAIN
@@ -128,6 +140,7 @@ MERGED from [com.google.android.gms:play-services-vision-common:11.0.2] /home/an
 MERGED from [com.google.android.gms:play-services-base:11.0.2] /home/andre/.android/build-cache/af0e5c7a2eb7df53cd908576c853d68ce22d1736/output/AndroidManifest.xml:17:5-43
 MERGED from [com.google.android.gms:play-services-tasks:11.0.2] /home/andre/.android/build-cache/8f361965d1b7012d0f8046129d36c378fae8487c/output/AndroidManifest.xml:3:5-43
 MERGED from [com.google.android.gms:play-services-basement:11.0.2] /home/andre/.android/build-cache/2cadbdaf6043eede7e90e930fdee3fb3953ceb1c/output/AndroidManifest.xml:17:5-43
+MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:19:5-43
 MERGED from [com.android.support:support-v4:25.3.1] /home/andre/.android/build-cache/44255be1e3ad4bfdff94084105e14bf33eca4446/output/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-fragment:25.3.1] /home/andre/.android/build-cache/d68f268d6dc5ac0d3f5db447b7335a38b9be75bd/output/AndroidManifest.xml:21:5-23:60
 MERGED from [com.android.support:support-media-compat:25.3.1] /home/andre/.android/build-cache/c88adfee20450a52a4d2a1050e8fc649c64ce048/output/AndroidManifest.xml:21:5-23:63
@@ -135,6 +148,7 @@ MERGED from [com.android.support:support-core-ui:25.3.1] /home/andre/.android/bu
 MERGED from [com.android.support:support-core-utils:25.3.1] /home/andre/.android/build-cache/9d97c6af84cbbedcdd4169095a03af94f54ee560/output/AndroidManifest.xml:21:5-23:61
 MERGED from [com.android.support:support-compat:25.3.1] /home/andre/.android/build-cache/a3110c7ebc97a176742dc4b302cb4093a499adfb/output/AndroidManifest.xml:21:5-23:58
 MERGED from [BachelorProjectApp:openCVLibrary330rc:unspecified] /home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/openCVLibrary330rc/build/intermediates/bundles/default/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.volley:volley:1.0.0] /home/andre/.android/build-cache/485bb3fddcc36c3c5387e9f2312ba800ff4b4c41/output/AndroidManifest.xml:7:5-43
 	tools:overrideLibrary
 		ADDED from [com.android.support:design:25.3.1] /home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/AndroidManifest.xml:23:9-59
 	android:targetSdkVersion
@@ -160,11 +174,6 @@ MERGED from [com.android.support:support-compat:25.3.1] /home/andre/.android/bui
 		ADDED from [com.android.support:design:25.3.1] /home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/AndroidManifest.xml:27:9-31
 	android:name
 		ADDED from [com.android.support:design:25.3.1] /home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/AndroidManifest.xml:26:9-47
-uses-permission#android.permission.INTERNET
-ADDED from [com.koushikdutta.ion:ion:2.1.9] /home/andre/.android/build-cache/3e474e77fba8e27ffaa6190030722d308dc2398b/output/AndroidManifest.xml:11:5-67
-MERGED from [com.koushikdutta.async:androidasync:2.1.9] /home/andre/.android/build-cache/9a1c60f8be638bef85f9bf641dfbb009b604fc08/output/AndroidManifest.xml:11:5-67
-	android:name
-		ADDED from [com.koushikdutta.ion:ion:2.1.9] /home/andre/.android/build-cache/3e474e77fba8e27ffaa6190030722d308dc2398b/output/AndroidManifest.xml:11:22-64
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:11.0.2] /home/andre/.android/build-cache/af0e5c7a2eb7df53cd908576c853d68ce22d1736/output/AndroidManifest.xml:19:9-172
 	android:exported
@@ -179,3 +188,35 @@ ADDED from [com.google.android.gms:play-services-basement:11.0.2] /home/andre/.a
 		ADDED from [com.google.android.gms:play-services-basement:11.0.2] /home/andre/.android/build-cache/2cadbdaf6043eede7e90e930fdee3fb3953ceb1c/output/AndroidManifest.xml:20:66-119
 	android:name
 		ADDED from [com.google.android.gms:play-services-basement:11.0.2] /home/andre/.android/build-cache/2cadbdaf6043eede7e90e930fdee3fb3953ceb1c/output/AndroidManifest.xml:20:20-65
+uses-feature#android.hardware.camera.flash
+ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:35:5-37:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:37:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:36:9-53
+uses-feature#android.hardware.screen.landscape
+ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:38:5-40:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:40:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:39:9-57
+uses-feature#android.hardware.wifi
+ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:41:5-43:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:43:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:42:9-45
+activity#com.journeyapps.barcodescanner.CaptureActivity
+ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:46:9-52:63
+	android:clearTaskOnLaunch
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:48:13-45
+	android:screenOrientation
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:49:13-56
+	android:stateNotNeeded
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:50:13-42
+	android:windowSoftInputMode
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:52:13-60
+	android:theme
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:51:13-54
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:3.4.0] /home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/AndroidManifest.xml:47:13-74

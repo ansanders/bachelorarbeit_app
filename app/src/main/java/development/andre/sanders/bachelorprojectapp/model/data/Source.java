@@ -12,34 +12,51 @@ import java.util.List;
 /**
  * Created by andre on 07.07.17.
  * <p>
- * Repräsentation eines Quellbildes samt hinterlegter Polygone und ihrer Informationen
+ * this class represents a source object. A source object contains the original image or the descriptors
+ * of it and all the known polygon information of this image.
+ *
  */
+
 
 public class Source {
 
-    //Das Quellbild. Nur bei erstem start zu Featureberechnung gesetzt. Danach null
+    private static final String TAG = "Source.class";
+    //every original image should get scaled to this resolution
+    private static final int REDUCED_SOURCE_WIDTH = 760;
+    private static final int REDUCED_SOURCE_HEIGHT = 620;
+
+
+    //original image. Nessessary for the feature detection
     private Bitmap originalImage;
 
-    //Mat Repräsentation des Originalbildes
-    private Mat originalMat;
-    //Object id- year, or name, or id....
+    //key for indexing this source in any kind of collections
     private String sourceId;
 
-    //Map aller shapes, die das Bild beinhaltet. Irgendein Objektschlüssel
+    //List of all known polygons
     private List<Polygon> shapes = new ArrayList<>();
 
-    //Merkmale des Bildes
+    //keypoints of original image
     private MatOfKeyPoint features;
 
-    //Deskriptoren des Bildes
+    //descriptors of original image
     private Mat descriptors;
+
+    //title of the Source
+    private String title;
+
+    //published year
+    private int published;
+    //artist name
+    private String artistName;
+
+
 
 
     //Default C'tor
     public Source() {
 
     }
-
+    //special c'tor
     public Source(String sourceId, Bitmap originalImage, List<Polygon> shapes) {
         this.originalImage = originalImage;
         this.sourceId = sourceId;
@@ -52,9 +69,12 @@ public class Source {
      * release all allocated memory for mat objects
      */
     public void releaseAll() {
-        originalMat.release();
+        if(features!= null)
         features.release();
+
+        if(descriptors!= null)
         descriptors.release();
+
     }
 
 
@@ -98,11 +118,35 @@ public class Source {
         this.descriptors = descriptors;
     }
 
-    public Mat getOriginalMat() {
-        return originalMat;
+    public static int getReducedSourceWidth() {
+        return REDUCED_SOURCE_WIDTH;
     }
 
-    public void setOriginalMat(Mat originalMat) {
-        this.originalMat = originalMat;
+    public static int getReducedSourceHeight() {
+        return REDUCED_SOURCE_HEIGHT;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getPublished() {
+        return published;
+    }
+
+    public void setPublished(int published) {
+        this.published = published;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 }

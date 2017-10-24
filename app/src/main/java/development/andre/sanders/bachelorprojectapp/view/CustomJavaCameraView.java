@@ -22,6 +22,8 @@ public class CustomJavaCameraView extends JavaCameraView {
 
     private Camera.Size previewSize;
 
+    private double currentScalingFactor =0;
+
     static {
 
         Log.d("MEINE_CAMERA.class", "class created");
@@ -218,6 +220,7 @@ public class CustomJavaCameraView extends JavaCameraView {
             if (zoom > 0)
                 zoom--;
         }
+        Log.d(TAG, "current zoom: " + zoom + " mDistance: " + newDist );
         mDist = newDist;
         params.setZoom(zoom);
         mCamera.setParameters(params);

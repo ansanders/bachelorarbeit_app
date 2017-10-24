@@ -2,6 +2,7 @@ package development.andre.sanders.bachelorprojectapp.model.data;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 
 import java.io.Serializable;
@@ -11,16 +12,24 @@ import java.util.List;
 
 /**
  * Created by andre on 07.07.17.
- * Repräsentation eines Polygons samt seiner hinterlegten Information
+ * this class represents a known polygon include all known information of it
  */
 
 public class Polygon implements Serializable {
 
-    //Information zu diesem Polygon
+    //region codes to identify relative location
+    private static final int INSIDE = 0;
+    private static final int LEFT = 1;
+    private static final int RIGHT = 2;
+    private static final int BOTTOM = 4;
+    private static final int TOP = 8;
+
+
+    //information of this polygon
     private JSONObject information = null;
 
     //Kanten dieses Polygons
-    private List<Line> edges = new ArrayList<>();
+    private List<Point> corners = new ArrayList<>();
     //Mittelpunkt dieses Polygons
     private double xPos, yPos;
 
@@ -30,13 +39,13 @@ public class Polygon implements Serializable {
     }
 
 
-    public Polygon(double xPos, double yPos, List<Line> edges, JSONObject information) {
+    public Polygon(double xPos, double yPos, List<Point> corners, JSONObject information) {
         this.information = information;
         this.xPos = xPos;
         this.yPos = yPos;
-        this.edges = edges;
-    }
+        this.corners = corners;
 
+    }
 
 
     /**
@@ -45,15 +54,47 @@ public class Polygon implements Serializable {
      */
     public boolean isVisible(Rect view) {
 
+//        int cornersInside = 0;
+//
+//        for (Point point : corners) {
+//            int rc = getRegionCode(point, view);
+//            if (rc == INSIDE)
+//                cornersInside++;
+//            if(rc != INSIDE)
+//                return false;
+//
+//        }
+
+       // return cornersInside == corners.size();
+
+
         return xPos > view.tl().x && xPos <= view.br().x && yPos < view.br().y && yPos > view.tl().y;
     }
 
-    public JSONObject getInformation(){
+    /**
+     *
+     * @param point to get the region code for
+     * @param clippingView view to define the region of point
+     * @return regioncode of point
+     */
+    private int getRegionCode(Point point, Rect clippingView) {
+        int code = xPos < clippingView.tl().x
+                ? LEFT
+                : xPos > clippingView.br().x
+                ? RIGHT
+                : INSIDE;
+        if (yPos > clippingView.br().y) code |= BOTTOM;
+        else if (yPos < clippingView.tl().y) code |= TOP;
+        return code;
+    }
+
+    public JSONObject getInformation() {
         return information;
     }
 
     /**
      * Diese Methode liefert
+     *
      * @return die Polygoninformation als zusammenhängenden Text.
      */
     public String getInformationAsText() {
@@ -63,13 +104,12 @@ public class Polygon implements Serializable {
 
             Iterator<?> keys = information.keys();
 
-            while( keys.hasNext() ) {
-                String key = (String)keys.next();
-                if ( information.get(key) instanceof JSONObject ) {
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
+                if (information.get(key) instanceof JSONObject) {
                     //nothing
-                }
-                else{
-                    string.append(key);
+                } else {
+
                     string.append(information.get(key));
                     string.append(" ");
                 }
@@ -88,19 +128,19 @@ public class Polygon implements Serializable {
         this.information = information;
     }
 
-    public List<Line> getEdges() {
-        return edges;
+    public List<Point> getCorners() {
+        return corners;
     }
 
-    public void setEdges(List<Line> edges) {
-        this.edges = edges;
+    public void setCorners(List<Point> corners) {
+        this.corners = corners;
     }
 
     public double getxPos() {
         return xPos;
     }
 
-    public void setxPos(int xPos) {
+    public void setxPos(double xPos) {
         this.xPos = xPos;
     }
 
@@ -108,7 +148,7 @@ public class Polygon implements Serializable {
         return yPos;
     }
 
-    public void setyPos(int yPos) {
+    public void setyPos(double yPos) {
         this.yPos = yPos;
     }
 }

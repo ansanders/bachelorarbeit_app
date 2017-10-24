@@ -6,5 +6,6 @@ package development.andre.sanders.bachelorprojectapp.model.callbacks;
 
 public interface CalculationListener {
     void onCalculationCompleted();
-    void showCalculationStatus(Integer progress, String message);
+    void onCalculationUpdate(Integer progress, String message);
+    void showProgressDialog(String title);
 }

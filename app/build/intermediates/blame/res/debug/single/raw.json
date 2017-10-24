@@ -4,6 +4,10 @@
         "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/raw/haarcascade_frontalface_alt.xml"
     },
     {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/raw/zxing_beep.ogg",
+        "source": "/home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/res/raw/zxing_beep.ogg"
+    },
+    {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/raw/lbpcascade_frontalface.xml",
         "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/raw/lbpcascade_frontalface.xml"
     }

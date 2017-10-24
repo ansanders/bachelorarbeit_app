@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qrCodeActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="development.andre.sanders.bachelorprojectapp.view.LaunchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/buttonScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jetzt loslegen"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/logouos"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:src="@drawable/logouos" />
+
+    <TextView
+        android:id="@+id/startFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Diese App ist im Rahmen einer Bachelorarbeit an der Universität Osnabrück entstanden.
+        Entwickler : Andre Sanders"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+    android:id="@+id/userHelpText1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:text="Starte die Anwedung, indem du auf den Button drückst und scanne anschließend den QR-Code des Bildes ein vor dem du stehst."
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_above="@+id/buttonScan"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

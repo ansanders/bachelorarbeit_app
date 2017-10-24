@@ -88,10 +88,6 @@
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/select_dialog_singlechoice_material.xml"
     },
     {
-        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/listitem_start.xml",
-        "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/layout/listitem_start.xml"
-    },
-    {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/abc_list_menu_item_layout.xml"
     },
@@ -108,10 +104,6 @@
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/abc_action_menu_item_layout.xml"
     },
     {
-        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/activity_result.xml",
-        "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/layout/activity_result.xml"
-    },
-    {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/abc_list_menu_item_radio.xml"
     },
@@ -124,6 +116,10 @@
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/abc_expanded_menu_layout.xml"
     },
     {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/merge_camera_preview_view_finder.xml",
+        "source": "/home/andre/.android/build-cache/dbcde0736f2751038e349ce185218273a418a44c/output/res/layout/merge_camera_preview_view_finder.xml"
+    },
+    {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/abc_action_mode_close_item_material.xml"
     },
@@ -132,12 +128,12 @@
         "source": "/home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/res/layout/design_navigation_menu_item.xml"
     },
     {
-        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/activity_start.xml",
-        "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/layout/activity_start.xml"
-    },
-    {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/design_bottom_navigation_item.xml",
         "source": "/home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/res/layout/design_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/zxing_capture.xml",
+        "source": "/home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/res/layout/zxing_capture.xml"
     },
     {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_item_layout.xml",
@@ -146,10 +142,6 @@
     {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/abc_screen_content_include.xml"
-    },
-    {
-        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/listgroup_header.xml",
-        "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/layout/listgroup_header.xml"
     },
     {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/notification_template_lines_media.xml",
@@ -188,8 +180,16 @@
         "source": "/home/andre/.android/build-cache/0082116351a3394c57b425624f9cd5eb0240c10c/output/res/layout/design_layout_tab_icon.xml"
     },
     {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/seletect_source_activity.xml",
+        "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/layout/seletect_source_activity.xml"
+    },
+    {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/layout/abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/zxing_barcode_scanner.xml",
+        "source": "/home/andre/.android/build-cache/7cbea3481d9c836c2323cf89967f1c8635e2d0c4/output/res/layout/zxing_barcode_scanner.xml"
     },
     {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/layout/abc_select_dialog_material.xml",

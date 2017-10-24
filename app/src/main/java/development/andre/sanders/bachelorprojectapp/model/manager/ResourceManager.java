@@ -6,15 +6,14 @@ import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
 
@@ -26,11 +25,14 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import development.andre.sanders.bachelorprojectapp.model.callbacks.DownloadListener;
 import development.andre.sanders.bachelorprojectapp.model.data.Polygon;
@@ -49,25 +51,28 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ResourceManager {
     //Tag
-    private final String TAG = "ResourceManager.class";
+    private static final String TAG = "ResourceManager.class";
+    public static final String HOST_STATIC = "http://project2.informatik.uni-osnabrueck.de/ardetection/";
 
     //Singleton Instanz
     private static ResourceManager instance = null;
 
-    //das aktuell für den AppModus angelegte Datenverzeichnis
+    //internal storage directory for the current appmode
     private File modeDirectory;
 
-    //Map aller Source-Objekte
+    //contains all source objects related to current appMode
     private Map<String, Source> modeResources = new HashMap<>();
 
+    //callback for downloadTask
     private DownloadListener downloadListener;
 
+    //current source object where the user is located
     private Source currentSource;
 
+    //current appmode
+    private String currentAppMode ="";
 
-
-
-    //Referenz
+    //singleton istance
     public static ResourceManager getInstance() {
         if (instance == null) {
             instance = new ResourceManager();
@@ -77,60 +82,142 @@ public class ResourceManager {
 
 
     /**
-     * @param activity initiiert den Singleton. Nicht wirklich objektorientiert aber praktisch für
-     *                 diesen Zweck.
+     * @param activity init the singleton for this specific appmode
      */
     public void init(Activity activity, String appMode, DownloadListener listener) {
 
-        if(modeResources!= null && !modeResources.isEmpty())
-            resetData();
+        final Context appContext = activity.getApplicationContext();
+        listener.showProgressDialog("Lade alle Daten zu " + appMode);
+
+        //load data if there is another appmode as before
+        if(currentAppMode.isEmpty()|| !appMode.equals(currentAppMode))
+        {
+            //reset the mode relative data for the old appMode
+            if (modeResources != null && !modeResources.isEmpty())
+                resetData();
+
+            //update appmode
+            currentAppMode = appMode;
+
+            //setup the data directory in internal storage for the app
+            ContextWrapper contextWrapper = new ContextWrapper(activity.getApplicationContext());
+            String fileDir = "data";
+            File directory = contextWrapper.getDir(fileDir, Context.MODE_PRIVATE);
 
 
-        ContextWrapper contextWrapper = new ContextWrapper(activity.getApplicationContext());
-        String fileDir = "data";
-        File directory = contextWrapper.getDir(fileDir, Context.MODE_PRIVATE);
-        this.downloadListener = listener;
+            this.downloadListener = listener;
 
-        //Benutze Shared Preferences zum Speichern kleinerer Daten
-        SharedPreferences prefs = activity.getSharedPreferences(fileDir, MODE_PRIVATE);
+            //shared preferences for small datas
+            SharedPreferences prefs = activity.getSharedPreferences(fileDir, MODE_PRIVATE);
 
-        //Lege Verzeichnis im internal Storage an
-        modeDirectory = new File(directory, appMode);
+            //setup directory for specific appmode
+            modeDirectory = new File(directory, currentAppMode);
 
-        //Wenn Modus zum ersten mal gestartet --> Daten herunterladen
-        if (prefs.getBoolean("firstRun" + appMode, true)) {
-
-            prefs.edit().putBoolean("firstRun" + appMode, false).apply();
-
-            //erstell Verzeichnis für diesen Modus im internen Speicher
-            boolean status = modeDirectory.mkdir();
-
-            //Lade alle daten herunter
-            new DownloadResourceTask(appMode, downloadListener).execute();
+            //if mode started the first time, download all relative data from server
+            if (prefs.getBoolean("firstRun" + currentAppMode, true)) {
 
 
+                prefs.edit().putBoolean("firstRun" + currentAppMode, false).apply();
+
+                //create physical representation
+                boolean status = modeDirectory.mkdir();
+
+                AsyncTask<Void, Void, JSONObject> prepareTask = new AsyncTask<Void, Void, JSONObject>() {
+                    @Override
+                    protected JSONObject doInBackground(Void... params) {
+                        return ResourceManager.getInstance().getListOfAvailableModeResources();
+                    }
+                    @Override
+                    protected void onPostExecute (JSONObject result){
+                        //load data from server
+                        new DownloadResourceTask(appContext ,downloadListener, result).execute();
+                    }
+                }.execute();
+
+
+
+            }
+
+            //not the first start, then load all data from internal mode directory
+            else {
+
+                //load all the data from internal storage
+                readModeDataFromStorage();
+
+
+            }
         }
-
-        //nicht der erste Start --_> Daten aus dem Speicher laden
-        else {
-
-            //load all the data from internal storage
-            readModeDataFromStorage();
-
-
+        else{
+            //download already done before
+            listener.onDownloadResult();
         }
 
 
     }
 
-    public void resetData(){
+    //helper method to clear all data of the resourcemanager
+    private void resetData() {
 
+        currentSource = null;
         modeResources.clear();
 
     }
 
     /**
+     * @return JSON object of URL's of the resources from Server
+     */
+    private JSONObject getListOfAvailableModeResources() {
+
+        URL requestUrl = null;
+        String response = "";
+        try {
+             requestUrl = new URL(ResourceManager.HOST_STATIC + "data/" + ResourceManager.getInstance().getCurrentAppMode() + "/");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        if(requestUrl!= null) {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) requestUrl.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setDoOutput(true);
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
+                connection.connect();
+
+                BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                while ((line = rd.readLine()) != null) {
+                    response += line + "\n";
+                }
+
+                rd.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+
+            }
+            finally{
+                if(connection!= null)
+                connection.disconnect();
+            }
+            JSONObject modeData = null;
+            try {
+                modeData = new JSONObject(response);
+            } catch (JSONException e) {
+                Log.e(TAG, "Error receiving JSON LIST ");
+            }
+            return modeData;
+        }
+        else
+            Log.e(TAG, "BROKEN REQUESTURL ");
+            return null;
+    }
+
+    /**
      * Diese Methode liest alle zum aktuellen Appmodus hinterlegten Daten ein.
+     * Gespeichert werden
      *
      * @return true if success
      */
@@ -241,12 +328,12 @@ public class ResourceManager {
      *
      * @return true if success
      */
-    public boolean writeAllData() {
+    public boolean writeModeDataToStorage() {
 
 
         boolean status = false;
-        for (Object key : getModeResources().keySet()) {
-            status = writeSourceToInternalStorage(getModeResources().get(key), key.toString());
+        for (String key : getModeResources().keySet()) {
+            status = writeSourceToInternalStorage(getModeResources().get(key), key);
 
         }
         return status;
@@ -266,7 +353,7 @@ public class ResourceManager {
             sourceDir.mkdirs();
 
         //anzulegende datei
-        File polygonDataDestination = null;
+        File polygonDataDestination;
         File bitmapDestination = null;
 
 
@@ -274,37 +361,14 @@ public class ResourceManager {
 
         String jsonString = gson.toJson(object.getShapes());
 
+
         //create paths
         if (modeDirectory != null) {
 
-
             polygonDataDestination = new File(sourceDir, fileName + ".obj");
             bitmapDestination = new File(sourceDir, fileName + ".jpg");
+            writeStringToFile(jsonString, polygonDataDestination);
 
-
-            FileOutputStream fos = null;
-
-            //Stream to write in File
-            try {
-                fos = new FileOutputStream(polygonDataDestination);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            if (fos == null)
-                return false;
-
-            OutputStreamWriter ow = new OutputStreamWriter(fos);
-            try {
-                ow.write(jsonString);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                ow.close();
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
 
@@ -325,111 +389,183 @@ public class ResourceManager {
         return true;
     }
 
+    /**
+     * @param matToStore Mat that should be stored in the filesystem / internal storage
+     * @param sourceKey  source object it belongs to
+     * @return true if success
+     */
+    public final boolean writeMat(Mat matToStore, String sourceKey) {
 
 
-    public final boolean writeMat(Mat matToStore, Object sourceKey) {
-
-
-        File sourceDir = new File(modeDirectory, sourceKey.toString());
+        File sourceDir = new File(modeDirectory, sourceKey);
         if (!sourceDir.exists()) {
             return false;
-        }
-        else{
+        } else {
             MatStorageUtils helper = new MatStorageUtils(sourceDir);
-            return helper.writeMat(matToStore);
+
+            if (matToStore instanceof MatOfKeyPoint) {
+
+                File featureFile = new File(sourceDir, "features_" + sourceKey + ".json");
+                if (!featureFile.exists()) {
+                    try {
+                        featureFile.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                return writeStringToFile(helper.featuresToJson(((MatOfKeyPoint) matToStore)), featureFile);
+            } else {
+                return helper.writeDescriptorMat(matToStore);
+            }
+
         }
 
     }
 
     public final MatOfKeyPoint readFeatures(Object sourceKey) {
         File sourceDir = new File(modeDirectory, sourceKey.toString());
-        if(!sourceDir.exists())
+        if (!sourceDir.exists()) {
+            Log.d(TAG, "FEHLER BEIM LESEN DER FEATURES");
             return null;
-        else{
+
+        } else {
             MatStorageUtils helper = new MatStorageUtils(sourceDir);
-            return helper.readFeatures();
+            File featureFile = new File(sourceDir, "features_" + sourceKey + ".json");
+            if (!featureFile.exists())
+                return null;
+            else {
+                String featureJson = readStringFromFile(featureFile);
+                return helper.featuresFromJson(featureJson);
+
+            }
         }
 
     }
 
-    public final Mat readDescriptors(Object sourceKey){
+    public final Mat readDescriptors(Object sourceKey) {
         File sourceDir = new File(modeDirectory, sourceKey.toString());
-        if(!sourceDir.exists())
+        if (!sourceDir.exists()) {
+            Log.d(TAG, "FEHLER BEIM LESEN DER DESKRIPTOREN");
+
             return null;
-        else{
+
+        } else {
             MatStorageUtils helper = new MatStorageUtils(sourceDir);
             return helper.readDescriptors();
         }
     }
 
     /**
-     * @param activity    activity which wants to save the Image
-     * @param finalBitmap Image to save
+     *
+     * @param file to read from
+     * @return read String
      */
-    public static void saveImageToExternalStorage(Activity activity, Bitmap finalBitmap) {
-        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-        File myDir = new File(root + "/saved_images");
-        myDir.mkdirs();
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt(n);
-        String fname = "algotest" + n + ".jpg";
-        File file = new File(myDir, fname);
-        if (file.exists())
-            file.delete();
+    private String readStringFromFile(File file) {
+
+        FileReader fr = null;
         try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
+            fr = new FileReader(file);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+        if (fr == null)
+            return null;
+
+        BufferedReader br = new BufferedReader(fr);
+        try {
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            try {
+                line = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            while (line != null) {
+                sb.append(line);
+                sb.append("\n");
+                try {
+                    line = br.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return sb.toString();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
-        // Tell the media scanner about the new file so that it is
-        // immediately available to the user.
-        MediaScannerConnection.scanFile(activity.getApplicationContext(), new String[]{file.toString()}, null,
-                new MediaScannerConnection.OnScanCompletedListener() {
-                    public void onScanCompleted(String path, Uri uri) {
-                        Log.i("ExternalStorage", "Scanned " + path + ":");
-                        Log.i("ExternalStorage", "-> uri=" + uri);
-                    }
-                });
-
     }
 
-    public void releaseAllData(){
-        for(String key : modeResources.keySet()){
+    /**
+     * @param string that should be stored
+     * @param dest   File where it should be stored
+     * @return true if success
+     */
+    private boolean writeStringToFile(String string, File dest) {
+
+        //Stream to write in File
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(dest);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.d(TAG, "file not found " + dest.getName());
+            return false;
+        }
+
+
+        OutputStreamWriter ow = new OutputStreamWriter(fos);
+        try {
+            ow.write(string);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG, "failed to write file " + dest.getName());
+
+            return false;
+        }
+        try {
+            ow.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Failed to close streams");
+
+            return false;
+        }
+        return true;
+    }
+
+
+    public void releaseAllData() {
+        for (String key : modeResources.keySet()) {
             modeResources.get(key).releaseAll();
         }
     }
+
+    public String getCurrentAppMode() {
+        return currentAppMode;
+    }
+
+
     public Map<String, Source> getModeResources() {
         return modeResources;
-    }
-
-    public void setModeResources(Map<String, Source> modeResource) {
-        this.modeResources = modeResource;
-    }
-
-    public File getSourceDir(String name) {
-        File file = new File(modeDirectory, name);
-        if (!file.exists())
-            return null;
-        else
-            return file;
-
     }
 
     public Source getCurrentSource() {
         return currentSource;
     }
 
-    public void setCurrentSource(Source currentSource) {
-        this.currentSource = currentSource;
-    }
 
-    public void setCurrentSourceById(String id){
+    public void setCurrentSourceById(String id) {
         this.currentSource = modeResources.get(id);
     }
+
 }

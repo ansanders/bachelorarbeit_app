@@ -8,4 +8,6 @@
     <string name="startMuseumModeText">Ich bin im Museum</string>
     <string name="lastMatchesText">Debug</string>
     <string name="ok">okay</string>
+    <string name ="startMatching">starte Matching</string>
+    <string name="stopMatching">Stoppe Matching</string>
 </resources>

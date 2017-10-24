@@ -8,6 +8,7 @@
 # Java class files
 *.class
 
+/openCVLibrary330rc
 # Generated files
 bin/
 gen/
@@ -53,3 +54,14 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+Würde .idea/ löschen
+Würde app/libs/ivy_2.8.1-0.10.1.jar löschen
+Würde app/src/main/jniLibs/armeabi-v7a/libopencv_datasets.a löschen
+Würde app/src/main/jniLibs/armeabi-v7a/libopencv_saliency.a löschen
+Würde build.gradle löschen
+Würde gradle.properties löschen
+Würde gradle/ löschen
+Würde gradlew löschen
+Würde gradlew.bat löschen
+Würde import-summary.txt löschen
+Würde settings.gradle löschen

@@ -132,6 +132,10 @@
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/drawable/notification_bg_low.xml"
     },
     {
+        "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/drawable/logouos.png",
+        "source": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/src/main/res/drawable/logouos.png"
+    },
+    {
         "merged": "/home/andre/Schreibtisch/bachelor_project/app/BachelorProjectApp/app/build/intermediates/res/merged/debug/drawable/abc_ic_ab_back_material.xml",
         "source": "/home/andre/.android/build-cache/946b2c3aa49d8bd30aca18af3f615c339d855010/output/res/drawable/abc_ic_ab_back_material.xml"
     },

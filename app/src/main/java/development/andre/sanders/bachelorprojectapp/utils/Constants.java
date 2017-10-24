@@ -7,6 +7,8 @@ package development.andre.sanders.bachelorprojectapp.utils;
 
 public class Constants {
 
+    public static final String SERVER_RESOURCE_DIR = "project2.informatik.uni-osnabrueck.de/ardetection/static";
+
     //APP MODUS
     public final static String STUDENT_MODE = "studentMode";
     public final static String MUSEUM_MODE = "museumMode";
